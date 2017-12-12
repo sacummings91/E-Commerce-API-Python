@@ -21,7 +21,7 @@ class ItemModel(db.Model):
         self.image_URL = image_URL
 
     def json(self):
-        return {'name': self.name, 'price': self.price}
+        return {'id': self.id, 'name': self.name, 'price': self.price}
 
     @classmethod
     def find_by_name(cls, name):

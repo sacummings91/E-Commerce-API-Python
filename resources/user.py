@@ -7,38 +7,32 @@ class UserRegister(Resource):
     parser.add_argument('first_name',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
     parser.add_argument('last_name',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
     parser.add_argument('email',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
     parser.add_argument('username',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
     parser.add_argument('password',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
     parser.add_argument('role',
                         type=str,
                         required=True,
-                        help="This field cannot be left blank!",
-
+                        help="This field cannot be left blank!"
                         )
 
     def post(self):

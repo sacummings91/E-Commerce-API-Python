@@ -36,20 +36,18 @@ class Item(Resource):
                         help="This field cannot be left blank!"
                         )
 
-    @jwt_required()  # Can put jwt_required on any method to require jwt authorization
+    # @jwt_required()  # Can put jwt_required on any method to require jwt authorization
     def get(self, _id):
         item = ItemModel.find_by_id(_id)
         if item:
             return item.json()
         return {'message': 'Item not found'}, 404
 
-    def post(self, name):
-        if ItemModel.find_by_name(name):
-            return {'message': "An item with the name '{}' already exists.".format(name)}, 400
-
+    @jwt_required()
+    def post(self):
         data = Item.parser.parse_args()
 
-        item = ItemModel(name, **data)
+        item = ItemModel(**data)
 
         try:
             item.save_to_db()
