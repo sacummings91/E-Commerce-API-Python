@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.order import OrderModel
-import logging
 
 
 class Order(Resource):
@@ -24,8 +23,6 @@ class UserOrders(Resource):
 
     def post(self, user_id):
         data = Order.parser.parse_args()
-
-        logging.warning(data)
 
         order = OrderModel(**data)
 
