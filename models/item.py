@@ -21,12 +21,12 @@ class ItemModel(db.Model):
         self.image_URL = image_URL
 
     def json(self):
-        return {'id': self.id, 'name': self.name, 'price': self.price}
+        return {'id': self.id, 'name': self.name, 'description': self.description, 'category': self.category, 'is_featured': self.is_featured, 'price': self.price}
 
     @classmethod
     def find_by_name(cls, name):
         # SELECT * FROM items WHERE name=name LIMIT 1
-        return ItemModel.query.filter_by(name=name).first()
+        return cls.query.filter_by(name=name).first()
 
     @classmethod
     def find_by_id(cls, _id):
@@ -34,6 +34,9 @@ class ItemModel(db.Model):
 
     def save_to_db(self):
         db.session.add(self)
+        db.session.commit()
+
+    def update_db(self):
         db.session.commit()
 
     def delete_from_db(self):

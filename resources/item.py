@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, inputs
 from flask_jwt import jwt_required
 from models.item import ItemModel
+import logging
 
 
 class Item(Resource):
@@ -56,22 +57,46 @@ class Item(Resource):
 
         return item.json(), 201
 
-    def delete(self, name):
-        item = ItemModel.find_by_name(name)
+    @jwt_required()
+    def delete(self, _id):
+        item = ItemModel.find_by_id(_id)
         if item:
             item.delete_from_db()
 
         return {'message': 'Item deleted'}
 
-    def put(self, name):
+    # @jwt_required()
+    # def patch(self, _id):
+    #     data = Item.parser.parse_args()
+    #
+    #     logging.warning(data, "<<<<< DATAAAA")
+    #
+    #     # item = ItemModel.find_by_id(_id)
+    #
+    #     data.update_db()
+    #
+    #     return item.json()
+
+    @jwt_required()
+    def put(self, _id):
         data = Item.parser.parse_args()
 
-        item = ItemModel.find_by_name(name)
+        item = ItemModel.find_by_id(_id)
 
         if item is None:
             item = ItemModel(name, **data)
-        else:
+        if 'name' in data.keys():
+            item.name = data['name']
+        if 'description' in data.keys():
+            item.description = data['description']
+        if 'category' in data.keys():
+            item.category = data['category']
+        if 'is_featured' in data.keys():
+            item.is_featured = data['is_featured']
+        if 'price' in data.keys():
             item.price = data['price']
+        if 'image_URL' in data.keys():
+            item.image_URL = data['image_URL']
 
         item.save_to_db()
 

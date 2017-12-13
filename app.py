@@ -5,6 +5,7 @@ from flask_jwt import JWT
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import Item, ItemList
+from resources.favorite import Favorite
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_dev'
@@ -22,6 +23,8 @@ jwt = JWT(app, authenticate, identity)  # /auth
 
 api.add_resource(Item, '/item', '/item/<int:_id>')
 api.add_resource(ItemList, '/items')
+api.add_resource(Favorite, '/favorites/<int:_id>',
+                 '/users/<int:user_id>/favorites')
 api.add_resource(UserRegister, '/register')
 
 if __name__ == '__main__':
