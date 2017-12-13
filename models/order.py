@@ -1,21 +1,23 @@
 from db import db
+import datetime
 
 
-class FavoriteModel(db.Model):
-    __tablename__ = 'favorite'
+class OrderModel(db.Model):
+    __tablename__ = 'order'
 
     id = db.Column(db.Integer, primary_key=True)
+    confirmation_num = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
+    total = db.Column(db.Float(precision=2))
     user = db.relationship('UserModel')
-    item = db.relationship('ItemModel')
 
-    def __init__(self, user_id, item_id):
+    def __init__(self, confirmation_num, user_id, total):
+        self.confirmation_num = confirmation_num
         self.user_id = user_id
-        self.item_id = item_id
+        self.total = total
 
     def json(self):
-        return {'id': self.id, 'user_id': self.user_id, 'item_id': self.item_id}
+        return {'id': self.id, 'confirmation_num': self.confirmation_num, 'user_id': self.user_id, 'total': self.total}
 
     @classmethod
     def find_by_id(cls, _id):
@@ -27,8 +29,4 @@ class FavoriteModel(db.Model):
 
     def save_to_db(self):
         db.session.add(self)
-        db.session.commit()
-
-    def delete_from_db(self):
-        db.session.delete(self)
         db.session.commit()
