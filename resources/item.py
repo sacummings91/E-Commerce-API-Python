@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, inputs
 from flask_jwt import jwt_required
 from models.item import ItemModel
-import logging
 
 
 class Item(Resource):
@@ -69,7 +68,6 @@ class Item(Resource):
     # def patch(self, _id):
     #     data = Item.parser.parse_args()
     #
-    #     logging.warning(data, "<<<<< DATAAAA")
     #
     #     # item = ItemModel.find_by_id(_id)
     #
