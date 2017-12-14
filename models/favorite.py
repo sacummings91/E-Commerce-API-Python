@@ -14,8 +14,8 @@ class FavoriteModel(db.Model):
         self.user_id = user_id
         self.item_id = item_id
 
-    def json(self):
-        return {'id': self.id, 'user_id': self.user_id, 'item_id': self.item_id}
+    def json_favorite(self):
+        return {'id': self.id, 'userId': self.user_id, 'itemId': self.item_id}
 
     @classmethod
     def find_by_id(cls, _id):

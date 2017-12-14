@@ -1,4 +1,5 @@
 from db import db
+import logging
 
 
 class ItemModel(db.Model):
@@ -20,8 +21,8 @@ class ItemModel(db.Model):
         self.price = price
         self.image_URL = image_URL
 
-    def json(self):
-        return {'id': self.id, 'name': self.name, 'description': self.description, 'category': self.category, 'is_featured': self.is_featured, 'price': self.price}
+    def json_item(self):
+        return {'id': self.id, 'name': self.name, 'description': self.description, 'category': self.category, 'isFeatured': self.is_featured, 'price': self.price, 'imageUrl': self.image_URL}
 
     @classmethod
     def find_by_name(cls, name):
@@ -31,6 +32,14 @@ class ItemModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_fav_id(cls, fav_item_ids):
+        list = []
+        for _id in fav_item_ids:
+            list.append(cls.query.filter_by(id=_id).all())
+        favObjs = [item for sublist in list for item in sublist]
+        return favObjs
 
     def save_to_db(self):
         db.session.add(self)
