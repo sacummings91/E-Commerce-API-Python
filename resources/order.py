@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.order import OrderModel
+import logging
 
 
 class Order(Resource):
@@ -28,6 +29,7 @@ class UserOrders(Resource):
 
         try:
             order.save_to_db()
+
         except:
             return {'message': 'An error ocurred inserting the order'}, 500
 

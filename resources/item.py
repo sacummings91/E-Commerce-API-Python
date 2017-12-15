@@ -1,5 +1,4 @@
 from flask_restful import Resource, reqparse, inputs
-from flask_jwt import jwt_required
 from models.item import ItemModel
 
 
@@ -40,10 +39,9 @@ class Item(Resource):
     def get(self, _id):
         item = ItemModel.find_by_id(_id)
         if item:
-            return item.json()
+            return item.json_item()
         return {'message': 'Item not found'}, 404
 
-    @jwt_required()
     def post(self):
         data = Item.parser.parse_args()
 
@@ -54,9 +52,8 @@ class Item(Resource):
         except:
             return {"message": "An error ocurred inserting the item."}, 500
 
-        return item.json(), 201
+        return item.json_item(), 201
 
-    @jwt_required()
     def delete(self, _id):
         item = ItemModel.find_by_id(_id)
         if item:
@@ -64,18 +61,6 @@ class Item(Resource):
 
         return {'message': 'Item deleted'}
 
-    # @jwt_required()
-    # def patch(self, _id):
-    #     data = Item.parser.parse_args()
-    #
-    #
-    #     # item = ItemModel.find_by_id(_id)
-    #
-    #     data.update_db()
-    #
-    #     return item.json()
-
-    @jwt_required()
     def put(self, _id):
         data = Item.parser.parse_args()
 

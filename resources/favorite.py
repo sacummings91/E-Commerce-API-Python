@@ -12,22 +12,19 @@ class Favorite(Resource):
     def get(self, user_id):
         return list(map(lambda x: x.json(), FavoriteModel.find_by_user_id(user_id)))
 
-    @jwt_required()
     def post(self, user_id):
         data = Favorite.parser.parse_args()
 
-        logging.warning(data)
-
         favorite = FavoriteModel(**data)
 
-        logging.warning(favorite)
+        logging.warning(data)
 
         try:
             favorite.save_to_db()
         except:
             return {'message': 'An error occured inserting the favorite'}, 500
 
-        return favorite.json(), 201
+        return favorite.json_favorite(), 201
 
     def delete(self, _id):
         favorite = FavoriteModel.find_by_id(_id)

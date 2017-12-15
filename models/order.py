@@ -17,7 +17,7 @@ class OrderModel(db.Model):
         self.total = total
 
     def json(self):
-        return {'id': self.id, 'confirmation_num': self.confirmation_num, 'user_id': self.user_id, 'total': self.total}
+        return {'id': self.id, 'confirmationNum': self.confirmation_num, 'userId': self.user_id, 'total': self.total}
 
     @classmethod
     def find_by_id(cls, _id):

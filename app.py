@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_dev'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'JWT_KEY'
+app.secret_key = 'h29fh09x9fha9w02h'
 api = Api(app)
 
 
@@ -23,9 +23,15 @@ def create_tables():
     db.create_all()
 
 
+@app.before_request
+def log_request_info():
+    app.logger.debug('Headers: %s', request.headers)
+    app.logger.debug('Body: %s', request.get_data())
+
+
 jwt = JWT(app, authenticate, identity)  # /auth
 
-api.add_resource(Item, '/item', '/items/<int:_id>')
+api.add_resource(Item, '/item', '/item/<int:_id>')
 api.add_resource(ItemList, '/items')
 api.add_resource(Favorite, '/favorites/<int:_id>',
                  '/users/<int:user_id>/favorites')
