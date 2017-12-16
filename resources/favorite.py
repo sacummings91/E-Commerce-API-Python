@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.favorite import FavoriteModel
+from models.item import ItemModel
 import logging
 
 
@@ -17,14 +18,17 @@ class Favorite(Resource):
 
         favorite = FavoriteModel(**data)
 
-        logging.warning(data)
-
         try:
             favorite.save_to_db()
         except:
             return {'message': 'An error occured inserting the favorite'}, 500
 
-        return favorite.json_favorite(), 201
+        item = ItemModel.find_by_id(data['item_id'])
+        json_item = item.json_item()
+        json_favorite = favorite.json_favorite()
+        fav_list = [json_item, json_favorite]
+
+        return fav_list, 201
 
     def delete(self, _id):
         favorite = FavoriteModel.find_by_id(_id)
