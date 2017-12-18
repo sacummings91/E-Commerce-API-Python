@@ -1,8 +1,6 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
 from models.order import OrderModel
 from models.order_item import OrderItemModel
-import logging
 
 
 class Order(Resource):
@@ -12,7 +10,6 @@ class Order(Resource):
     parser.add_argument('total', type=float, required=True)
     parser.add_argument('item_ids', type=int, action='append', required=True)
 
-    @jwt_required()
     def get(self, _id):
         order = OrderModel.find_by_id(_id)
         if order:

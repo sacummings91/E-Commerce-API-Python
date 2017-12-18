@@ -1,6 +1,5 @@
 from db import db
 import bcrypt
-import logging
 
 
 class UserModel(db.Model):

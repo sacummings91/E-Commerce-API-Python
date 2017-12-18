@@ -1,12 +1,11 @@
 from db import db
-import logging
 
 
 class ItemModel(db.Model):
     __tablename__ = 'item'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+    name = db.Column(db.String())
     description = db.Column(db.String())
     category = db.Column(db.String())
     is_featured = db.Column(db.Boolean())
@@ -22,12 +21,15 @@ class ItemModel(db.Model):
         self.image_URL = image_URL
 
     def json_item(self):
-        return {'id': self.id, 'name': self.name, 'description': self.description, 'category': self.category, 'isFeatured': self.is_featured, 'price': self.price, 'imageUrl': self.image_URL}
-
-    @classmethod
-    def find_by_name(cls, name):
-        # SELECT * FROM items WHERE name=name LIMIT 1
-        return cls.query.filter_by(name=name).first()
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'category': self.category,
+            'isFeatured': self.is_featured,
+            'price': self.price,
+            'imageUrl': self.image_URL
+        }
 
     @classmethod
     def find_by_id(cls, _id):

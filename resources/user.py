@@ -1,9 +1,7 @@
 from flask_restful import Resource, reqparse
-# from flask_jwt import jwt_required
 from models.user import UserModel
 from models.item import ItemModel
 from models.favorite import FavoriteModel
-import logging
 
 
 class UserRegister(Resource):
