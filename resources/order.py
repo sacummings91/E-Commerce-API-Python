@@ -19,7 +19,23 @@ class Order(Resource):
 
 class UserOrders(Resource):
     def get(self, user_id):
-        return list(map(lambda x: x.json(), OrderModel.find_by_user_id(user_id)))
+        user_orders = list(
+            map(lambda x: x.json(), OrderModel.find_by_user_id(user_id)))
+
+        order_ids = []
+
+        for i in user_orders:
+            order_ids.append(i['id'])
+
+        order_items = OrderItemModel.find_by_order_id(order_ids)
+        json_order_items = list(
+            map(lambda x: x.json_order_item(), order_items))
+
+        json_order_info = {}
+        json_order_info['userOrders'] = user_orders
+        json_order_info['orderItems'] = json_order_items
+
+        return json_order_info
 
     def post(self, user_id):
         data = Order.parser.parse_args()

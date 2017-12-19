@@ -1,4 +1,5 @@
 from db import db
+import logging
 
 
 class OrderItemModel(db.Model):
@@ -14,12 +15,16 @@ class OrderItemModel(db.Model):
         self.order_id = order_id
         self. item_id = item_id
 
-    def json(self):
+    def json_order_item(self):
         return {'id': self.id, 'order_id': self.order_id, 'item_id': self.item_id}
 
     @classmethod
-    def find_by_order_id(cls, order_id):
-        return cls.query.filter_by(order_id=order_id).all()
+    def find_by_order_id(cls, order_ids):
+        list = []
+        for _id in order_ids:
+            list.append(cls.query.filter_by(order_id=_id).all())
+        order_items = [item for sublist in list for item in sublist]
+        return order_items
 
     def save_to_db(self):
         db.session.add(self)
