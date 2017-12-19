@@ -9,6 +9,7 @@ from resources.item import Item, ItemList
 from resources.favorite import Favorite
 from resources.order import Order, UserOrders
 from resources.order_item import OrderItem
+from db import db
 import os
 
 application = Flask(__name__)
@@ -44,6 +45,5 @@ api.add_resource(UserRegister, '/register', '/users/<int:_id>')
 api.add_resource(OrderItem, '/orderitems/<int:order_id>')
 
 if __name__ == '__main__':
-    from db import db
     db.init_app(application)
     application.run(port=5000, debug=True)
