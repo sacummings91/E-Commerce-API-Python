@@ -20,6 +20,7 @@ application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecommerceadmin:the
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 application.secret_key = 'h29fh09x9fha9w02h'
 api = Api(application)
+db.init_app(application)
 
 
 @application.before_first_request
@@ -45,5 +46,4 @@ api.add_resource(UserRegister, '/register', '/users/<int:_id>')
 api.add_resource(OrderItem, '/orderitems/<int:order_id>')
 
 if __name__ == '__main__':
-    db.init_app(application)
     application.run(port=5000, debug=True)
