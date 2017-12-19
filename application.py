@@ -14,8 +14,8 @@ import os
 app = Flask(__name__)
 CORS(app)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_dev'
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecommerceadmin:therealst33zy!!!@aazr52go8cnf2a.cxbnexrfclol.us-west-1.rds.amazonaws.com/capstone_dev'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'h29fh09x9fha9w02h'
 api = Api(app)
