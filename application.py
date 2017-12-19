@@ -11,28 +11,28 @@ from resources.order import Order, UserOrders
 from resources.order_item import OrderItem
 import os
 
-app = Flask(__name__)
-CORS(app)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_dev'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecommerceadmin:therealst33zy!!!@aazr52go8cnf2a.cxbnexrfclol.us-west-1.rds.amazonaws.com/capstone_dev'
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'h29fh09x9fha9w02h'
-api = Api(app)
+application = Flask(__name__)
+CORS(application)
+# application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_dev'
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecommerceadmin:therealst33zy!!!@aazr52go8cnf2a.cxbnexrfclol.us-west-1.rds.amazonaws.com/capstone_dev'
+# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+application.secret_key = 'h29fh09x9fha9w02h'
+api = Api(application)
 
 
-@app.before_first_request
+@application.before_first_request
 def create_tables():
     db.create_all()
 
 
-@app.before_request
+@application.before_request
 def log_request_info():
-    app.logger.debug('Headers: %s', request.headers)
-    app.logger.debug('Body: %s', request.get_data())
+    application.logger.debug('Headers: %s', request.headers)
+    application.logger.debug('Body: %s', request.get_data())
 
 
-jwt = JWT(app, authenticate, identity)  # /auth
+jwt = JWT(application, authenticate, identity)  # /auth
 
 api.add_resource(Item, '/item', '/item/<int:_id>')
 api.add_resource(ItemList, '/items')
@@ -45,5 +45,5 @@ api.add_resource(OrderItem, '/orderitems/<int:order_id>')
 
 if __name__ == '__main__':
     from db import db
-    db.init_app(app)
-    app.run(port=5000, debug=True)
+    db.init_app(application)
+    application.run(port=5000, debug=True)
