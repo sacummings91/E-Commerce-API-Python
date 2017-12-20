@@ -9,13 +9,16 @@ from resources.item import Item, ItemList
 from resources.favorite import Favorite
 from resources.order import Order, UserOrders
 from resources.order_item import OrderItem
+
 from db import db
 import datetime
 import os
 
+
 application = Flask(__name__)
 CORS(application)
-application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ecommerceadmin:therealst33zy!!!@aazr52go8cnf2a.cxbnexrfclol.us-west-1.rds.amazonaws.com/capstone_dev'
+# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 application.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(days=7)
 application.secret_key = 'h29fh09x9fha9w02h'

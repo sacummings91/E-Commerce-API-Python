@@ -1,0 +1,3 @@
+{
+  "tests/test_api.py::test_get_should_return_items": true
+}

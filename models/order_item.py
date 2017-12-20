@@ -1,5 +1,4 @@
 from db import db
-import logging
 
 
 class OrderItemModel(db.Model):
