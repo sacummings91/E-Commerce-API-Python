@@ -62,6 +62,7 @@ class Item(Resource):
         return {'message': 'Item deleted'}
 
     def put(self, _id):
+
         data = Item.parser.parse_args()
 
         item = ItemModel.find_by_id(_id)
@@ -83,7 +84,7 @@ class Item(Resource):
 
         item.save_to_db()
 
-        return item.json()
+        return item.json_item()
 
 
 class ItemList(Resource):
