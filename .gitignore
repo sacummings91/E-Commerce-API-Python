@@ -9,3 +9,7 @@ __pycache__/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
